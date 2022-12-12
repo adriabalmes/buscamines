@@ -11,6 +11,7 @@
         body {
             padding: 1%;
         }
+        /* div para mostrar has perdido */
         #hasPerdido {
             background-color: red;
             text-align: center;
@@ -21,6 +22,7 @@
             display: none;
        
         }
+        /* div para mostrar has ganado */
         #hasGanado {
             background-color: lightgreen;
             text-align: center;
@@ -31,14 +33,13 @@
             border-radius: 5px;
         }
 
-        .inputValues {
-            display: flex;
-            width: 100%;
-        }
+        
         .textBox {
             display: flex;
             align-items: center;
+            padding: 5px 10px 5px 10px;
         }
+        /* caja de texto X, Y */ 
         .textBox > p {
             background-color: black;
             font-weight: bold;
@@ -49,29 +50,96 @@
             border-radius: 5px;
             z-index: 1;
         }
+        /* input para X e Y */
         .textBox > input {
             border: 2.5px solid black;
             border-radius: 0px 5px 5px 0px;
-            width: 40%;
+            width: 50px;
             margin-left: -3px;
             font-size: 1.05em;
             font-weight: bold;
             text-align: right;
         }
+        /* input para nº de Minas */
         .textBox:last-child > input{
             border: 2.5px solid black;
             border-radius: 0px 5px 5px 0px;
-            width: 30%;
+            width: 50px;
             margin-left: -3px;
         }
+        /* valores de entrada X, Y, MINAS */
+        .inputValues {
+            display: flex;
+            width: 100%;
+        }
+        /* botones para inicializar juego */
         .buttons {
+            background-color: black; 
+            color: whitesmoke; 
+            margin-bottom: 2%;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            border-radius: 5px;
+            font-size: 1.1em;
+            padding: 5px 10px 5px 10px;
+        }
+        .predeterminados {
+            background-color: white; 
+            color: black;
+            border: 2.5px solid black; 
+            margin-bottom: 2%;
+            margin-right: -1.5%;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            border-radius: 5px;
+            font-size: 1.05em;
+            padding: 5px 10px 5px 10px;
+        }
+
+        .selector {
             background-color: black; 
             color: whitesmoke; 
             margin-bottom: 2%;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             border-radius: 5px;
+            font-size: 1.01em;
+            padding: 5px 10px 5px 10px;
+            text-align: center;
+            
+
+
+        }
+        
+        th {
+            background-color: black;
+            color: white;
+            border: 2.5px solid black; 
+            padding: 5px 10px 5px 10px;
+            border-radius: 5px;
+        }
+        td {
+            border: 2.5px solid black;
+            border-radius: 5px; 
+        }
+
+        #reloj {
+            background-color: black; 
+            color: whitesmoke; 
+            margin-bottom: 2%;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            border-radius: 5px;
+            text-align: center;
             font-size: 1.1em;
             padding: 5px 10px 5px 10px;
+            width: 60px;
+        }
+        #ganadores {
+            display: none;
+        }
+        #ganador {
+            font-weight: bold;
+            text-align: center;
         }
     </style>
 </head>
@@ -91,13 +159,31 @@
         </div>
     </div>
     
-    <button type="button" onclick="createTable()" class="buttons">Crea tabla</button> 
-    <button type="button" onclick="inicialitzaMines()" class="buttons">Inicializa minas</button>
-    <button type="button" onclick="inicializaJuego()" class="buttons"><b>Inicializar juego</b></button>
-    <div id="idDIV">
-    </div>
+    <button type="button" onclick="inicializaJuego()" class="buttons"><b>INICIALIZAR JUEGO</b></button>
+    <button type="button" onclick="reset()" class="buttons"><b>RESET</b></button>
+    <select class="selector" name="predeterminados" id="predeterminados" onchange="juegoDesplegable()">
+        <option>PREDETERMINADOS</option>
+        <option value="9:9:10">9 x 9 - 10 minas</option>
+        <option value="9:9:35">9 x 9 - 35 minas</option>
+        <option value="16:16:99">16 x 16 - 99 minas</option>
+        <option value="30:16:99">30 x 16 - 99 minas</option>
+        <option value="30:16:170">30 x 16 - 170 minas</option>
+    </select>
+    <div id="reloj">0:00</div>
+
+    <div id="idDIV"></div>
+    
     <h2 id="hasPerdido">¡BOMBA! HAS PERDIDO</h2>
     <h2 id="hasGanado">¡BOMBAS NEUTRALIZADAS! HAS GANADO</h2>
+
+    <table id="ganadores">
+        <tr>
+            <th>Nombre</th>
+            <th>Puntuación</th>
+        </tr>
+        <tr id="ganador">
+        </tr>
+    </table>
   
     <script src="buscaminas.js"></script>
 </body>
